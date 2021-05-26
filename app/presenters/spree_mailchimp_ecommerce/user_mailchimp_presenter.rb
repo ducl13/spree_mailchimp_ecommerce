@@ -18,6 +18,16 @@ module SpreeMailchimpEcommerce
       }.merge(address).as_json
     end
 
+    def json_subscribed
+      {
+        id: Digest::MD5.hexdigest(user.email.downcase),
+        email_address: user.email || "",
+        opt_in_status: true,
+        first_name: firstname,
+        last_name: lastname,
+      }.merge(address).as_json
+    end
+
     private
 
     def firstname

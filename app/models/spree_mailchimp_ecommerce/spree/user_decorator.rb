@@ -2,12 +2,16 @@ module SpreeMailchimpEcommerce
   module Spree
     module UserDecorator
       def self.prepended(base)
-        base.after_create :create_mailchimp_user
+        base.after_create :create_mailchimp_subscribed_user
         base.after_update :update_mailchimp_user
       end
 
       def mailchimp_user
         ::SpreeMailchimpEcommerce::UserMailchimpPresenter.new(self).json
+      end
+
+      def mailchimp_subscribed_user
+        ::SpreeMailchimpEcommerce::UserMailchimpPresenter.new(self).json_subscribed
       end
 
       def mailchimp_subscriber
@@ -18,6 +22,10 @@ module SpreeMailchimpEcommerce
 
       def create_mailchimp_user
         ::SpreeMailchimpEcommerce::CreateUserJob.perform_later(mailchimp_user)
+      end
+
+      def create_mailchimp_subscribed_user
+        ::SpreeMailchimpEcommerce::CreateSubscribedUserJob.perform_later(mailchimp_subscribed_user)
       end
 
       def update_mailchimp_user
