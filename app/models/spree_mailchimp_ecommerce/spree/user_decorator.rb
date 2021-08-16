@@ -2,7 +2,7 @@ module SpreeMailchimpEcommerce
   module Spree
     module UserDecorator
       def self.prepended(base)
-        base.after_create :create_mailchimp_subscribed_user
+        base.after_create :create_mailchimp_user
         base.after_update :update_mailchimp_user
       end
 
