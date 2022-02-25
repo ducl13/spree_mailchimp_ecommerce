@@ -10,7 +10,9 @@ module SpreeMailchimpEcommerce
 
     def json
       {
+        id: Digest::MD5.hexdigest(user.email.downcase),
         email_address: user.email || "",
+        opt_in_status: true,
         status: "subscribed"
       }.as_json
     end
