@@ -28,6 +28,15 @@ module SpreeMailchimpEcommerce
       }.merge(address).as_json
     end
 
+    def json_update
+      {
+        id: Digest::MD5.hexdigest(user.email.downcase),
+        email_address: user.email || "",
+        first_name: firstname,
+        last_name: lastname,
+      }.merge(address).as_json
+    end
+
     private
 
     def firstname
