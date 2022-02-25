@@ -14,6 +14,10 @@ module SpreeMailchimpEcommerce
         ::SpreeMailchimpEcommerce::UserMailchimpPresenter.new(self).json_subscribed
       end
 
+      def mailchimp_update_user
+        ::SpreeMailchimpEcommerce::UserMailchimpPresenter.new(self).json_update
+      end
+
       def mailchimp_subscriber
         ::SpreeMailchimpEcommerce::SubscriberMailchimpPresenter.new(self).json
       end
@@ -32,7 +36,7 @@ module SpreeMailchimpEcommerce
         ignored_keys = %w[sign_in_count current_sign_in_at last_sign_in_at current_sign_in_ip updated_at]
         return true if (previous_changes.keys - ignored_keys).empty?
 
-        ::SpreeMailchimpEcommerce::UpdateUserJob.perform_later(mailchimp_user)
+        ::SpreeMailchimpEcommerce::UpdateUserJob.perform_later(mailchimp_update_user)
       end
     end
   end
