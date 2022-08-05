@@ -11,7 +11,7 @@ module SpreeMailchimpEcommerce
         end
 
         ::Spree::User.where.not(email: nil).find_each do |user|
-          ::SpreeMailchimpEcommerce::CreateSubscribedUserJob.perform_now(user.mailchimp_subscribed_user)
+          ::SpreeMailchimpEcommerce::CreateSubscribedUserJob.perform_now(user.mailchimp_user)
         end
 
         ::Spree::Order.complete.find_each do |order|
