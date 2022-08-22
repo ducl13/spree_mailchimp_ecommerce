@@ -3,7 +3,7 @@ module SpreeMailchimpEcommerce
     module ProductDecorator
       def self.prepended(base)
         base.after_create :create_mailchimp_product
-        base.after_update :update_mailchimp_product
+        # base.after_update :update_mailchimp_product
         base.after_destroy :delete_mailchimp_product
       end
 
